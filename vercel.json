@@ -2,34 +2,31 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",        // Your main Express app entry point
+      "src": "server.js",       
       "use": "@vercel/node"
     },
     {
-      "src": "public/**/*",    // Explicitly tell Vercel to treat all files in public/ as static assets
-      "use": "@vercel/static-build", // Use the static build builder
+      "src": "public/**/*",    
+      "use": "@vercel/static-build", 
       "config": {
-        "distDir": "public" // Vercel should output static files from public/ into a 'public' directory itself for routing
+        "distDir": "public" 
       }
     }
   ],
   "routes": [
-    // 1. Route API requests to your Node.js serverless function
+    
     {
       "src": "/api/(.*)",
       "dest": "server.js"
     },
-    // 2. Route the root (/) request to your Node.js serverless function
-    // (This is where your server.js will handle serving index.html)
+   
     {
       "src": "/",
       "dest": "server.js"
     },
-    // 3. Route any other asset requests (e.g., /styles.css, /images/logo.png) directly from the public/ folder
-    // This is efficient as Vercel's CDN will serve them directly, bypassing your Express app.
     {
       "src": "/(.*)",
-      "dest": "/public/$1" // Refers to the build output of the "public/**/*" build
+      "dest": "/public/$1" 
     }
   ]
 }
