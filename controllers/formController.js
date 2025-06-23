@@ -7,6 +7,8 @@ const formController = {
    * @param {object} res - Đối tượng Response của Express.
    */
   submitForm: async (req, res) => {
+    console.log("req.body", JSON.stringify(req.body, null, 2));
+    
     const recaptchaToken = req.body['g-recaptcha-response'];
     const userIp = req.ip; // Lấy IP của người dùng
 
