@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const formRoutes = require('../routes/formRoutes');
+const formRoutes = require('./routes/formRoutes');
 const path = require('path'); // Để xử lý đường dẫn
 
 dotenv.config(); // Tải biến môi trường từ file .env
