@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const formRoutes = require('./routes/formRoutes');
+const formRoutes = require('../routes/formRoutes');
 const path = require('path'); // Để xử lý đường dẫn
 
 dotenv.config(); // Tải biến môi trường từ file .env
@@ -9,6 +9,8 @@ dotenv.config(); // Tải biến môi trường từ file .env
 const app = express();
 const PORT = process.env.PORT || 3000;
 const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY; // Lấy Site Key
+console.log("RECAPTCHA_SITE_KEY", RECAPTCHA_SITE_KEY);
+
 
 // Middleware để xử lý dữ liệu form (application/x-www-form-urlencoded và application/json)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,9 +28,8 @@ app.use(express.static(path.join(process.cwd(), 'public'), {
           res.end();
           return;
         }
-        const replacedData = data.replace(/<%= process.env.RECAPTCHA_SITE_KEY %>/g, RECAPTCHA_SITE_KEY);
         res.setHeader('Content-Type', 'text/html');
-        res.send(replacedData);
+        res.send(data);
       });
       return; // Ngăn chặn express.static gửi file gốc
     }
