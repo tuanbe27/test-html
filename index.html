@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA v3 Example</title>
+    <!-- Thêm script reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf1a2orAAAAAElMRSXp7u5VI_DpiAYptDTk4LNJ"></script>
+</head>
+<body>
+    <!-- Nội dung form của bạn -->
+    <form id="myForm">
+        <input type="text" name="name" placeholder="Tên của bạn">
+        <input type="email" name="email" placeholder="Email của bạn">
+        <button type="submit">Gửi</button>
+    </form>
+
+    <script>
+        // JavaScript của bạn sẽ ở đây
+        // app.js hoặc trong thẻ <script> của bạn
+const form = document.getElementById('myForm');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+
+    // Thực thi reCAPTCHA v3 và nhận token
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Lf1a2orAAAAAElMRSXp7u5VI_DpiAYptDTk4LNJ', { action: 'submit_form' }).then(function(token) {
+            // Token đã sẵn sàng, gửi nó cùng với dữ liệu form của bạn
+            const formData = new FormData(form);
+            formData.append('g-recaptcha-response', token); // Thêm token vào formData
+
+            // Gửi dữ liệu form và token về backend
+            fetch('/submit-form', { // Thay đổi '/submit-form' thành endpoint của bạn
+                method: 'POST',
+                body: formData, // Gửi FormData bao gồm cả token
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Phản hồi từ server:', data);
+                              if (data.success) {
+                    alert('Form đã được gửi thành công!');
+                    form.reset();
+                } else {
+                    alert('Xác minh reCAPTCHA thất bại hoặc lỗi server: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi form:', error);
+                alert('Có lỗi xảy ra khi gửi form.');
+            });
+        });
+    });
+});
+    </script>
+</body>
+</html>
