@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const formRoutes = require('./routes/formRoutes');
+const formRoutes = require('../routes/formRoutes');
 const path = require('path'); // Để xử lý đường dẫn
 
 dotenv.config(); // Tải biến môi trường từ file .env
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 // Set view engine cho việc render HTML với biến môi trường (nếu cần)
 // Ở đây ta dùng cách đơn giản hơn là thay thế trực tiếp Site Key vào HTML tĩnh
-app.use(express.static(path.join(__dirname, 'public'), {
+app.use(express.static(path.join(process.cwd(), 'public'), {
   setHeaders: (res, path, stat) => {
     // Nếu là file HTML, thay thế Site Key vào nội dung
     if (path.endsWith('.html')) {
@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
 
 // Định nghĩa route gốc để trả về index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(process.cwd(), 'public', 'index.html'));
 });
 
 // Gắn router cho các API liên quan đến form
