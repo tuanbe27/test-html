@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reCAPTCHA v3 Example</title>
     <!-- Thêm script reCAPTCHA v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lf1a2orAAAAAElMRSXp7u5VI_DpiAYptDTk4LNJ"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeqemorAAAAAJyKymqJOl6KLhIZhUQLEih21P_G"></script>
 </head>
 <body>
     <!-- Nội dung form của bạn -->
@@ -25,7 +25,7 @@ form.addEventListener('submit', function(event) {
 
     // Thực thi reCAPTCHA v3 và nhận token
     grecaptcha.ready(function() {
-        grecaptcha.execute('6Lf1a2orAAAAAElMRSXp7u5VI_DpiAYptDTk4LNJ', { action: 'submit_form' }).then(function(token) {
+        grecaptcha.execute('6LeqemorAAAAAJyKymqJOl6KLhIZhUQLEih21P_G', { action: 'submit_form' }).then(function(token) {
             // Token đã sẵn sàng, gửi nó cùng với dữ liệu form của bạn
             const formData = new FormData(form);
             formData.append('g-recaptcha-response', token); // Thêm token vào formData
